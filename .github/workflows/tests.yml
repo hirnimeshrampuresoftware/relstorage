@@ -177,6 +177,8 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
         run: |
           twine upload --skip-existing dist/*
+          echo $CFLAGS
+          echo $CXXFLAGS
 
   test:
     needs: build-relstorage
@@ -280,6 +282,8 @@ jobs:
           sudo systemctl start mysql.service
           echo Configuring MySQL
           RELSTORAGETEST_MY_PW="--password=root" .travis/mysql.sh
+          echo $CFLAGS
+          echo $CXXFLAGS
           # XXX: Disabled: The software is installed, but isn't running by default,
           # apparently. They *really* want you to use a docker service.
           # echo Configuring PostgreSQL
@@ -482,7 +486,10 @@ jobs:
         # and only up through the tag 2021-02-06-3d322a5
         env:
           DOCKER_IMAGE: quay.io/pypa/manylinux2010_x86_64:2021-02-06-3d322a5
-        run: scripts/releases/make-manylinux
+        run: |
+          scripts/releases/make-manylinux
+          echo $CFLAGS
+          echo $CXXFLAGS
       - name: Upload RelStorage wheels
         uses: actions/upload-artifact@v2
         with:
