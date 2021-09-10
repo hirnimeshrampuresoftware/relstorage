@@ -531,6 +531,14 @@ jobs:
           pip install -U -q setuptools wheel twine && \
           pip install -q -U 'cython>=3.0a6' && \
           pip install 'greenlet>=1.0a1;platform_python_implementation=="CPython"' && \
+          echo "Build RelStorage" && \
+          python setup.py build_ext -i && \
+          python setup.py bdist_wheel && \
+          pip install .[test] && \
+          echo "Check RelStorage build" && \
+          ls -l dist && \
+          twine check dist/* && \
+          echo " "
           deactivate'
           
           
