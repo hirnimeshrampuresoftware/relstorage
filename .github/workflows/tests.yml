@@ -538,6 +538,7 @@ jobs:
           echo "Install Build Dependencies" && \
           pip install -U pip && \
           pip install -U -q setuptools wheel twine && \
+          ls && \
           echo $CFLAGS && \
           echo $CXXFLAGS && \
           deactivate'
