@@ -163,8 +163,6 @@ jobs:
         run: |
           ls -l dist
           twine check dist/*
-          echo $CFLAGS
-          echo $CXXFLAGS
       - name: Upload RelStorage wheel
         uses: actions/upload-artifact@v2
         with:
@@ -539,8 +537,8 @@ jobs:
           pip install -U pip && \
           pip install -U -q setuptools wheel twine && \
           ls && \
-          echo $CFLAGS && \
-          echo $CXXFLAGS && \
+          pip install -q -U 'cython>=3.0a6' && \
+          pip install 'greenlet>=1.0a1;platform_python_implementation=="CPython"' && \
           deactivate'
           
           
