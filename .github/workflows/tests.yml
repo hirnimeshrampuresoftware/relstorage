@@ -534,6 +534,7 @@ jobs:
           pip install -U setuptools && \
           pip install -U wheel && \
           pip install -U twine && \
+          pip install -q -U 'cython>=3.0a6' && \
           deactivate'
           
           
