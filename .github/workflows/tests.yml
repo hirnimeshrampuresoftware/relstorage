@@ -280,8 +280,6 @@ jobs:
           sudo systemctl start mysql.service
           echo Configuring MySQL
           RELSTORAGETEST_MY_PW="--password=root" .travis/mysql.sh
-          echo $CFLAGS
-          echo $CXXFLAGS
           # XXX: Disabled: The software is installed, but isn't running by default,
           # apparently. They *really* want you to use a docker service.
           # echo Configuring PostgreSQL
@@ -486,8 +484,6 @@ jobs:
           DOCKER_IMAGE: quay.io/pypa/manylinux2010_x86_64:2021-02-06-3d322a5
         run: |
           scripts/releases/make-manylinux
-          echo $CFLAGS
-          echo $CXXFLAGS
       - name: Upload RelStorage wheels
         uses: actions/upload-artifact@v2
         with:
@@ -535,9 +531,8 @@ jobs:
           yum install libmemcached-devel -y && \
           echo "Install Build Dependencies" && \
           pip install -U pip && \
-          pip install -U -q setuptools wheel twine && \
-          ls && \
-          pip install -q -U 'cython>=3.0a6' && \
+          pip install -U setuptools wheel twine && \
+          pip install -U 'cython>=3.0a6' && \
           deactivate'
           
           
