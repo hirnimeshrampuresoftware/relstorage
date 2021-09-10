@@ -149,10 +149,7 @@ jobs:
           pip install -U -q setuptools wheel twine
           pip install -q -U 'cython>=3.0a6'
           pip install 'greenlet>=1.0a1;platform_python_implementation=="CPython"'
-          echo $CFLAGS
-          echo $CXXFLAGS
           
-
       - name: Build RelStorage
         run: |
           # Next, build the wheel *in place*. This helps ccache, and also lets us cache the configure
@@ -527,6 +524,7 @@ jobs:
           bash -exc '${{ env.py }} -m venv .env && \
           source .env/bin/activate && \
           echo "Install ccache, configure CFLAGS (ubuntu)" && \
+          echo "Install native libs"
           deactivate'
           
           
