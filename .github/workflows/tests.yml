@@ -533,8 +533,6 @@ jobs:
           echo "Install ccache, configure CFLAGS (ubuntu)" && \
           echo "Install native libs"
           yum clean all && \
-          yum check && \
-          yum erase apf && \
           yum upgrade && \
           yum install libmemcached-devel -y && \
           echo "Install Build Dependencies" && \
