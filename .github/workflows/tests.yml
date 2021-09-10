@@ -538,8 +538,8 @@ jobs:
           echo "Install Build Dependencies" && \
           pip install -U pip && \
           pip install -U -q setuptools wheel twine && \
-          pip install -q -U 'cython>=3.0a6' && \
-          pip install 'greenlet>=1.0a1;platform_python_implementation=="CPython"' && \
+          echo $CFLAGS
+          echo $CXXFLAGS
           deactivate'
           
           
