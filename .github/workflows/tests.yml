@@ -536,6 +536,10 @@ jobs:
           pip install -U twine && \
           pip install -U cython && \
           pip install -U greenlet && \
+          echo "Build RelStorage" && \
+          python setup.py build_ext -i && \
+          python setup.py bdist_wheel && \
+          pip install .[test] && \
           deactivate'
           
           
