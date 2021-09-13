@@ -595,10 +595,12 @@ jobs:
           pip install --no-binary :all: mysqlclient && \
           echo "Install RelStorage" && \
           pip install -U coverage && \
+          yum install epel-release -y && \
+          yum install libpqxx-devel -y && \
           ls && \
           ls dist && \
           cd dist && \
-          pip install -U "RelStorage-3.5.0a7.dev0-${{ matrix.python-version }}-linux_aarch64.whl[test,all_tested_drivers]" && \
+          pip install -U RelStorage-3.5.0a7.dev0-${{ matrix.python-version }}-linux_aarch64.whl[test,all_tested_drivers] && \
           unzip -n dist/RelStorage-3.5.0a7.dev0-${{ matrix.python-version }}-linux_aarch64.whl -d src && \
           deactivate'
       
