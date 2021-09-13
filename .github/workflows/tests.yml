@@ -534,8 +534,8 @@ jobs:
           pip install -U setuptools && \
           pip install -U wheel && \
           pip install -U twine && \
-          pip install -U 'cython>=3.0a6' && \
-          pip install 'greenlet>=1.0a1;platform_python_implementation=="CPython"' && \
+          pip install -U "cython>=3.0a6" && \
+          pip install "greenlet>=1.0a1;platform_python_implementation==CPython" && \
           echo "Build RelStorage" && \
           python setup.py build_ext -i && \
           python setup.py bdist_wheel && \
