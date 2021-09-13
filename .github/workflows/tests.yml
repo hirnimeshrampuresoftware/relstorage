@@ -552,7 +552,7 @@ jobs:
       - name: Upload RelStorage wheel
         uses: actions/upload-artifact@v2
         with:
-          name: RelStorage-${{ runner.os }}-${{ matrix.python-version }}.whl
+          name: RelStorage-aarch64-${{ runner.os }}-${{ matrix.python-version }}.whl
           path: dist/*whl
           
   test_aarch64:
@@ -575,7 +575,7 @@ jobs:
       - name: Download RelStorage wheel
         uses: actions/download-artifact@v2
         with:
-          name: RelStorage-${{ runner.os }}-${{ matrix.python-version }}.whl
+          name: RelStorage-aarch64-${{ runner.os }}-${{ matrix.python-version }}.whl
           path: dist/
       - name: Installing and Building
         run: |
