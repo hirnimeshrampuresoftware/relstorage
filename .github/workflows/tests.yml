@@ -548,6 +548,11 @@ jobs:
           twine check dist/* && \
           deactivate'
           
+      - name: Upload RelStorage wheel
+        uses: actions/upload-artifact@v2
+        with:
+          name: RelStorage-${{ runner.os }}-${{ matrix.python-version }}.whl
+          path: dist/*whl
           
   test_aarch64:
     needs: build-relstorage
@@ -566,6 +571,11 @@ jobs:
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v1 
+      - name: Download RelStorage wheel
+        uses: actions/download-artifact@v2
+        with:
+          name: RelStorage-${{ runner.os }}-${{ matrix.python-version }}.whl
+          path: dist/
       - name: Installing and Building
         run: |
           docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
@@ -584,7 +594,7 @@ jobs:
           pip install -U coverage && \
           ls && \
           ls dist && \
-          pip install -U  "`ls dist/RelStorage-*.whl`[test,all_tested_drivers]" && \
+          pip install -U  "\"ls dist/RelStorage-*.whl\"[test,all_tested_drivers]" && \
           unzip -n dist/RelStorage-*whl -d src && \
           deactivate'
       
