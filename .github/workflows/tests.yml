@@ -584,6 +584,8 @@ jobs:
           bash -exc '${{ env.py }} -m venv .env && \
           source .env/bin/activate && \
           echo "Install ccache, configure CFLAGS (ubuntu)" && \
+          export CFLAGS="-Ofast -pipe -std=gnu++11" && \
+          export CXXFLAGS="-std=gnu++11" && \
           echo "Install native libs" && \
           yum install libmemcached-devel -y && \
           echo "Build mysqlclient" && \
@@ -595,8 +597,8 @@ jobs:
           pip install -U coverage && \
           ls && \
           ls dist && \
-          pip install -U  "\"ls dist/RelStorage-aarch64-*.whl\"[test,all_tested_drivers]" && \
-          unzip -n dist/RelStorage-aarch64-*whl -d src && \
+          pip install -U  "\"ls dist/RelStorage-3.5.0a7.dev0-*.whl\"[test,all_tested_drivers]" && \
+          unzip -n dist/RelStorage-3.5.0a7.dev0-*whl -d src && \
           deactivate'
       
 
