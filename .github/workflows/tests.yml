@@ -148,6 +148,10 @@ jobs:
           pip install -U pip
           pip install -U -q setuptools wheel twine
           pip install -q -U 'cython>=3.0a6'
+          echo "#########"
+          echo $platform_python_implementation
+          echo platform_python_implementation
+          echo "#########"
           pip install 'greenlet>=1.0a1;platform_python_implementation=="CPython"'
           
       - name: Build RelStorage
