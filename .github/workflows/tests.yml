@@ -556,7 +556,7 @@ jobs:
           path: dist/*whl
           
   test_aarch64:
-    needs: build-relstorage
+    needs: build-relstorage-aarch64
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
