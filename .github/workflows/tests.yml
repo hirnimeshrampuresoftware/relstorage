@@ -573,7 +573,7 @@ jobs:
           bash -exc '${{ env.py }} -m venv .env && \
           source .env/bin/activate && \
           echo "Install ccache, configure CFLAGS (ubuntu)" && \
-          export CFLAGS="-pipe -Ofast -std=gnu++11" && \
+          export CFLAGS="-std=gnu++11" && \
           export CXXFLAGS="-std=gnu++11" && \
           echo "Install native libs" && \
           yum install libmemcached-devel -y && \
