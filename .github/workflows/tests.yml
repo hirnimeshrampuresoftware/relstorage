@@ -544,6 +544,7 @@ jobs:
           python setup.py bdist_wheel && \
           pip install .[test] && \
           echo "Check RelStorage build" && \
+          ls && \
           ls -l dist && \
           twine check dist/* && \
           deactivate'
@@ -560,7 +561,7 @@ jobs:
     strategy:
       matrix:
         python-version: ['cp36-cp36m', 'cp37-cp37m', 'cp38-cp38', 'cp39-cp39']
-        os: [ubuntu-18.04, ubuntu-20.04]
+        os: [ubuntu-18.04]
     env:
       py: /opt/python/${{ matrix.python-version }}/bin/python
       img: quay.io/pypa/manylinux2014_aarch64
