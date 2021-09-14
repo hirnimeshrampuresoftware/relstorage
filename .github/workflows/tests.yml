@@ -588,7 +588,7 @@ jobs:
           echo "Build mysqlclient" && \
           pip install --upgrade pip && \
           yum -y install gcc mysql-devel python-devel python-setuptools && \
-          # yum -y install python3-devel libxslt-devel libffi-devel openssl-devel && \
+          yum -y install python3-devel libxslt-devel libffi-devel openssl-devel && \
           pip install --no-binary :all: mysqlclient && \
           echo "Install RelStorage" && \
           pip install -U coverage && \
