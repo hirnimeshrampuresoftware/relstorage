@@ -597,11 +597,13 @@ jobs:
           pip install -U coverage && \
           yum install epel-release -y && \
           yum install libpqxx-devel -y && \
-          ls && \
-          ls dist && \
           cd dist && \
           pip install -U RelStorage-3.5.0a7.dev0-${{ matrix.python-version }}-linux_aarch64.whl[test,all_tested_drivers] && \
           unzip -n RelStorage-3.5.0a7.dev0-${{ matrix.python-version }}-linux_aarch64.whl -d src && \
+          echo "Initialize Test Databases" && \
+          sudo systemctl start mysql.service && \
+          echo "Configuring MySQL" && \
+          RELSTORAGETEST_MY_PW="--password=root" .travis/mysql.sh && \
           deactivate'
 
   manylinux2014_aarch64:
