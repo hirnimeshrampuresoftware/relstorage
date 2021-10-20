@@ -623,8 +623,14 @@ jobs:
           sudo systemctl start mysql.service && \
           echo "Configuring MySQL" && \
           RELSTORAGETEST_MY_PW="--password=root" .travis/mysql.sh && \
-          ./.github/actions/run-tests/action.yml && \
+          echo "Run tests and report coverage" && \
+          bash run-test.sh && \
           deactivate'
+      - name: Submit to Coveralls
+        if: ${{ !startsWith(matrix.python-version, 'pypy') && startsWith(runner.os, 'Linux') }}
+        uses: AndreMiras/coveralls-python-action@develop
+        with:
+          parallel: true
 
   manylinux2014_aarch64:
     runs-on: ubuntu-latest
