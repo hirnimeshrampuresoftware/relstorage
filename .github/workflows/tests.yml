@@ -615,9 +615,8 @@ jobs:
           pip install --no-binary :all: mysqlclient && \
           echo "Install RelStorage" && \
           pip install -U coverage && \
-          pip install -U 'faulthandler; python_version == "2.7" and platform_python_implementation == "CPython"' && \
-          pip install -U  "`ls dist/RelStorage-*.whl`[test,all_tested_drivers]" && \
-          unzip -n dist/RelStorage-*whl -d src && \
+          
+          pip install -U faulthandler; python_version == "2.7" and platform_python_implementation == "CPython" && \
           cd dist && \
           pip install -U RelStorage-3.5.0a7.dev0-${{ matrix.python-version }}-linux_aarch64.whl[test,all_tested_drivers] && \
           unzip -n RelStorage-3.5.0a7.dev0-${{ matrix.python-version }}-linux_aarch64.whl -d src && \
