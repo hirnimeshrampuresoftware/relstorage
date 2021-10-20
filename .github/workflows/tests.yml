@@ -507,7 +507,6 @@ jobs:
       matrix:
         python-version: ['cp36-cp36m', 'cp37-cp37m', 'cp38-cp38', 'cp39-cp39']
         os: [ubuntu-18.04]
-
     env:
       py: /opt/python/${{ matrix.python-version }}/bin/python
       img: quay.io/pypa/manylinux2014_aarch64
@@ -558,11 +557,11 @@ jobs:
     strategy:
       matrix:
         python-version: ['cp36-cp36m', 'cp37-cp37m', 'cp38-cp38', 'cp39-cp39']
+        pyver: [3.6, 3.7, 3.8, 3.9]
         os: [ubuntu-18.04]
     env:
-      py: /opt/python/${{ matrix.python-version }}/bin/python
-      img: quay.io/pypa/manylinux2014_aarch64
-      
+      py: python${{ matrix.pyver }}
+      #img: quay.io/pypa/manylinux2014_aarch64
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -577,28 +576,28 @@ jobs:
       - name: Installing and Building
         run: |
           docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
-          ${{ env.img }} \
+          arm64v8/ubuntu \
+          apt install -y ${{ env.py }} && \
+          apt install -y ${{ env.py }}-venv && \
           bash -exc '${{ env.py }} -m venv .env && \
           source .env/bin/activate && \
           echo "Install ccache, configure CFLAGS (ubuntu)" && \
           export CFLAGS="-Ofast -pipe -std=gnu++11" && \
           export CXXFLAGS="-std=gnu++11" && \
           echo "Install native libs" && \
-          yum install libmemcached-devel -y && \
+          sudo apt-get install -y libmemcached-dev && \
           echo "Build mysqlclient" && \
           pip install --upgrade pip && \
-          yum -y install gcc mysql-devel python-devel python-setuptools && \
-          yum -y install python3-devel libxslt-devel libffi-devel openssl-devel && \
           pip install --no-binary :all: mysqlclient && \
           echo "Install RelStorage" && \
           pip install -U coverage && \
-          yum install epel-release -y && \
-          yum install libpqxx-devel -y && \
+          pip install -U 'faulthandler; python_version == "2.7" and platform_python_implementation == "CPython"'
+          pip install -U  "`ls dist/RelStorage-*.whl`[test,all_tested_drivers]"
+          unzip -n dist/RelStorage-*whl -d src
           cd dist && \
           pip install -U RelStorage-3.5.0a7.dev0-${{ matrix.python-version }}-linux_aarch64.whl[test,all_tested_drivers] && \
           unzip -n RelStorage-3.5.0a7.dev0-${{ matrix.python-version }}-linux_aarch64.whl -d src && \
           echo "Initialize Test Databases" && \
-          yum install sudo -y && \
           sudo systemctl start mysql.service && \
           echo "Configuring MySQL" && \
           RELSTORAGETEST_MY_PW="--password=root" .travis/mysql.sh && \
