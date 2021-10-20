@@ -615,6 +615,7 @@ jobs:
           sudo apt-get install python3.8-dev -y && \
           sudo apt-get install python3.9-dev -y && \
           pip install --upgrade pip && \
+          sudo apt-get install libhdf5-dev -y && \
           pip install --no-binary :all: mysqlclient && \
           echo "Install RelStorage" && \
           pip install -U coverage && \
