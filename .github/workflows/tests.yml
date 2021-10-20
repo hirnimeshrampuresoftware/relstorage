@@ -576,18 +576,19 @@ jobs:
         run: |
           docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
           arm64v8/ubuntu \
-          apt-get update && \
-          apt install software-properties-common -y && \
-          add-apt-repository ppa:deadsnakes/ppa && \
-          apt install -y ${{ env.py }} && \
-          apt install -y ${{ env.py }}-venv && \
+          apt-get install sudo -y && \
+          sudo apt-get update && \
+          sudo apt install software-properties-common -y && \
+          sudo add-apt-repository ppa:deadsnakes/ppa && \
+          sudo apt install -y ${{ env.py }} && \
+          sudo apt install -y ${{ env.py }}-venv && \
           bash -exc '${{ env.py }} -m venv .env && \
           source .env/bin/activate && \
           echo "Install ccache, configure CFLAGS (ubuntu)" && \
           export CFLAGS="-Ofast -pipe -std=gnu++11" && \
           export CXXFLAGS="-std=gnu++11" && \
           echo "Install native libs" && \
-          apt-get install -y libmemcached-dev && \
+          sudo apt-get install -y libmemcached-dev && \
           echo "Build mysqlclient" && \
           pip install --upgrade pip && \
           pip install --no-binary :all: mysqlclient && \
@@ -600,10 +601,10 @@ jobs:
           pip install -U RelStorage-3.5.0a7.dev0-${{ matrix.python-version }}-linux_aarch64.whl[test,all_tested_drivers] && \
           unzip -n RelStorage-3.5.0a7.dev0-${{ matrix.python-version }}-linux_aarch64.whl -d src && \
           echo "Initialize Test Databases" && \
-          systemctl start mysql.service && \
+          sudo systemctl start mysql.service && \
           echo "Configuring MySQL" && \
           RELSTORAGETEST_MY_PW="--password=root" .travis/mysql.sh && \
-          ./.github/actions/run-tests && \
+          ./.github/actions/run-tests/action.yml && \
           deactivate'
 
   manylinux2014_aarch64:
