@@ -612,6 +612,10 @@ jobs:
           sudo apt-get install libmysqlclient-dev -y && \
           sudo apt-get install ${{ env.py }}-dev -y && \
           pip install --upgrade pip && \
+          
+          sudo apt-get install gcc -y && \
+          sudo apt-get install libffi-dev -y && \
+          
           pip install --no-binary :all: mysqlclient && \
           echo "Install RelStorage" && \
           pip install -U coverage && \
