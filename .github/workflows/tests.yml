@@ -555,7 +555,6 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python-version: ['cp36-cp36m', 'cp37-cp37m', 'cp38-cp38', 'cp39-cp39']
         pyver: [3.6, 3.7, 3.8, 3.9]
         os: [ubuntu-18.04]
     env:
@@ -567,10 +566,29 @@ jobs:
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v1 
-      - name: Download RelStorage wheel
+      - name: Download RelStorage wheel for version 3.6
+        if: ${{ matrix.python-version== '3.6' }}
         uses: actions/download-artifact@v2
         with:
-          name: RelStorage-aarch64-${{ runner.os }}-${{ matrix.python-version }}.whl
+          name: RelStorage-aarch64-${{ runner.os }}-cp36-cp36m.whl
+          path: dist/
+      - name: Download RelStorage wheel for version 3.7
+        if: ${{ matrix.python-version== '3.7' }}
+        uses: actions/download-artifact@v2
+        with:
+          name: RelStorage-aarch64-${{ runner.os }}-cp37-cp37m.whl
+          path: dist/
+      - name: Download RelStorage wheel for version 3.8
+        if: ${{ matrix.python-version== '3.8' }}
+        uses: actions/download-artifact@v2
+        with:
+          name: RelStorage-aarch64-${{ runner.os }}-cp38-cp38m.whl
+          path: dist/
+      - name: Download RelStorage wheel for version 3.7
+        if: ${{ matrix.python-version== '3.9' }}
+        uses: actions/download-artifact@v2
+        with:
+          name: RelStorage-aarch64-${{ runner.os }}-cp39-cp39m.whl
           path: dist/
       - name: Installing and Building
         run: |
