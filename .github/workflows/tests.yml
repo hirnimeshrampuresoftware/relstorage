@@ -568,25 +568,25 @@ jobs:
         id: qemu
         uses: docker/setup-qemu-action@v1 
       - name: Download RelStorage wheel for version 3.6
-        if: ${{ matrix.python-version== '3.6' }}
+        if: ${{ matrix.python-version == '3.6' }}
         uses: actions/download-artifact@v2
         with:
           name: RelStorage-aarch64-${{ runner.os }}-cp36-cp36m.whl
           path: dist/
       - name: Download RelStorage wheel for version 3.7
-        if: ${{ matrix.python-version== '3.7' }}
+        if: ${{ matrix.python-version == '3.7' }}
         uses: actions/download-artifact@v2
         with:
           name: RelStorage-aarch64-${{ runner.os }}-cp37-cp37m.whl
           path: dist/
       - name: Download RelStorage wheel for version 3.8
-        if: ${{ matrix.python-version== '3.8' }}
+        if: ${{ matrix.python-version == '3.8' }}
         uses: actions/download-artifact@v2
         with:
           name: RelStorage-aarch64-${{ runner.os }}-cp38-cp38m.whl
           path: dist/
       - name: Download RelStorage wheel for version 3.7
-        if: ${{ matrix.python-version== '3.9' }}
+        if: ${{ matrix.python-version == '3.9' }}
         uses: actions/download-artifact@v2
         with:
           name: RelStorage-aarch64-${{ runner.os }}-cp39-cp39m.whl
@@ -595,13 +595,13 @@ jobs:
         run: |
           docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
           arm64v8/ubuntu \
-          apt-get update && \
+          bash -exc 'apt-get update && \
           apt-get install sudo -y && \
           sudo apt install software-properties-common -y && \
           sudo add-apt-repository ppa:deadsnakes/ppa && \
           sudo apt install -y ${{ env.py }} && \
           sudo apt install -y ${{ env.py }}-venv && \
-          bash -exc '${{ env.py }} -m venv .env && \
+          ${{ env.py }} -m venv .env && \
           source .env/bin/activate && \
           echo "Install ccache, configure CFLAGS (ubuntu)" && \
           export CFLAGS="-Ofast -pipe -std=gnu++11" && \
