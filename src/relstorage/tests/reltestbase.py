@@ -351,6 +351,11 @@ class GenericRelStorageTests(
 
         # len(storage) reports the number of objects.
         # check it is zero when empty
+        
+        print ("##############################")
+        print (len(self._storage))
+        print ("##############################")
+        
         self.assertEqual(len(self._storage), 0)
         # check it is correct when the storage contains two object.
         # len may also be zero, for storages that do not keep track
