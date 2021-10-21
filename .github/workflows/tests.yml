@@ -621,7 +621,7 @@ jobs:
           ls && \
           ls dist &&\
           cd dist && \
-          pip install -U "\"RelStorage-*.whl\\"[test,all_tested_drivers]" && \
+          pip install -U "\"RelStorage-*.whl\"[test,all_tested_drivers]" && \
           
           unzip -n RelStorage-${{ matrix.python-version }}-linux_aarch64.whl -d src && \
           echo "Initialize Test Databases" && \
