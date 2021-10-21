@@ -354,9 +354,7 @@ class GenericRelStorageTests(
         
         print ("##############################")
         l = len(self._storage)
-        m = len(storage)
         print (l)
-        print (m)
         print ("##############################")
         
         self.assertEqual(len(self._storage), 0)
