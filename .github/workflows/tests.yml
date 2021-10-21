@@ -583,13 +583,13 @@ jobs:
         if: ${{ matrix.python-version == '3.8' }}
         uses: actions/download-artifact@v2
         with:
-          name: RelStorage-aarch64-${{ runner.os }}-cp38-cp38m.whl
+          name: RelStorage-aarch64-${{ runner.os }}-cp38-cp38.whl
           path: dist/
-      - name: Download RelStorage wheel for version 3.7
+      - name: Download RelStorage wheel for version 3.9
         if: ${{ matrix.python-version == '3.9' }}
         uses: actions/download-artifact@v2
         with:
-          name: RelStorage-aarch64-${{ runner.os }}-cp39-cp39m.whl
+          name: RelStorage-aarch64-${{ runner.os }}-cp39-cp39.whl
           path: dist/
       - name: Installing and Building
         run: |
