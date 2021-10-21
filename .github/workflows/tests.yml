@@ -555,11 +555,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        pyver: [3.6, 3.7, 3.8, 3.9]
+        python-version: [3.6, 3.7, 3.8, 3.9]
         os: [ubuntu-18.04]
       fail-fast: false
     env:
-      py: python${{ matrix.pyver }}
+      py: python${{ matrix.python-version }}
       #img: quay.io/pypa/manylinux2014_aarch64
     steps:
       - name: checkout
@@ -612,9 +612,7 @@ jobs:
           sudo apt-get install libmysqlclient-dev -y && \
           sudo apt-get install ${{ env.py }}-dev -y && \
           pip install --upgrade pip && \
-          
           sudo apt-get install build-essential -y && \
-          
           pip install --no-binary :all: mysqlclient && \
           echo "Install RelStorage" && \
           pip install -U coverage && \
